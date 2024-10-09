@@ -10,14 +10,25 @@ def Secant(expr,X0,X1,iter,eps):
     app_root=[]
     i=0
     while i < iter:
+        # Calculate the function values at x0 and x1
         fx1 = expr.subs(x,xi).evalf()
         fx0 = expr.subs(x,xio).evalf()
+        
+        # Calculate the next approximation using the secant formula
         x_new = xi - fx1*((xi-xio)/(fx1-fx0))
+
+        # Check for convergence of secant formula
         err=abs((x_new-xi)/x_new)
+
+        # Keep running storage of approximated root and error level
         errs.append(err)
         app_root.append(x_new)
+
+        # Update the values for the next iteration
         xio=xi
         xi=x_new
+
+        # Return when error is less than prescribed by eps argument
         if err < eps:
             break
         i = i+1
